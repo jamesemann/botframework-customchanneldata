@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -16,6 +17,49 @@ namespace CustomChannelDataBot.Controllers
 
         public async Task MessageReceivedStart(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
+            // Slack example
+            // See https://api.slack.com/docs/messages
+            //var reply = context.MakeMessage();
+
+            //reply.Attachments = new List<Attachment>();
+            //var attachments = new List<object>();
+            //attachments.Add(new
+            //{
+            //    color = "#36a64f",
+            //    pretext = "New bug raised",
+            //    author_name= "James Mann",
+            //    author_link = "https://github.com/jamesemann",
+            //    author_icon = "https://avatars2.githubusercontent.com/u/6830648?v=3&s=400",
+            //    title = "Server error on page load",
+            //    title_link = "https://www.mywebsite.com/",
+            //    text = "Optional text that appears within the attachment",
+            //    fields = new[]
+            //    {
+            //        new
+            //        {
+            //            title = "Id",
+            //            value = "12345"
+            //        },
+            //        new
+            //        {
+            //            title = "Severity",
+            //            value = "High"
+            //        },
+            //        new
+            //        {
+            //            title = "Priority",
+            //            value = "High"
+            //        }
+            //    }
+            //});
+
+            //reply.ChannelData = JObject.FromObject(new {attachments});
+
+            //await context.PostAsync(reply);
+            //context.Wait(MessageReceivedStart);
+
+            // FB Messenger example
+            // See https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-checkin-template
             var reply = context.MakeMessage();
 
             var attachment = new
@@ -59,8 +103,8 @@ namespace CustomChannelDataBot.Controllers
                 }
             };
 
-            reply.ChannelData = JObject.FromObject(new {attachment});
-            
+            reply.ChannelData = JObject.FromObject(new { attachment });
+
             await context.PostAsync(reply);
             context.Wait(MessageReceivedStart);
         }
